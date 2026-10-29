@@ -3,6 +3,8 @@ package br.checker.monitor.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+
 import java.util.List;
 
 /**
@@ -32,10 +34,15 @@ public record DeviceRequest(
     Long idModel,
 
     @NotBlank(message = "O endereço IP é obrigatório")
+    @Pattern(regexp = "^((25[0-5]|2[0-4]\\d|1?\\d?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1?\\d?\\d)$",
+            message = "Endereço IP inválido")
     String ipAddress,
 
+    @Pattern(regexp = "^([0-9A-Fa-f]{2}[:-]?){5}[0-9A-Fa-f]{2}$",
+            message = "Endereço MAC inválido")
     String macAddress,
 
+    @NotNull(message = "O local (id_place) é obrigatório")
     Long idPlace,
 
     @NotEmpty(message = "Pelo menos uma role deve ser informada para o dispositivo")
