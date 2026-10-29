@@ -6,6 +6,7 @@ import br.checker.monitor.dto.PlaceResponse;
 import br.checker.monitor.exception.BusinessRuleException;
 import br.checker.monitor.model.Place;
 import br.checker.monitor.service.PlaceService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -84,7 +85,7 @@ public class PlaceController {
      * Cadastra um novo lugar.
      */
     @PostMapping
-    public ResponseEntity<PlaceResponse> createPlace(@RequestBody PlaceRequest request) {
+    public ResponseEntity<PlaceResponse> createPlace(@Valid @RequestBody PlaceRequest request) {
         Place place = placeService.create(request);
         PlaceResponse response = new PlaceResponse(
                 place.getId(),
@@ -99,7 +100,7 @@ public class PlaceController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<PlaceResponse> updatePlace(@PathVariable Long id,
-                                                      @RequestBody PlaceRequest request) {
+                                                      @Valid @RequestBody PlaceRequest request) {
         Place place = placeService.update(id, request);
         PlaceResponse response = new PlaceResponse(
                 place.getId(),
