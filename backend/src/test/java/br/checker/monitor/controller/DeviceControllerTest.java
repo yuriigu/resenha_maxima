@@ -2,13 +2,12 @@ package br.checker.monitor.controller;
 
 import br.checker.monitor.dto.DeviceDetailResponse;
 import br.checker.monitor.dto.DeviceRequest;
-import br.checker.monitor.dto.DeviceRoleRequest;
 import br.checker.monitor.dto.DeviceRoleResponse;
 import br.checker.monitor.service.DeviceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Teste automatizado do DeviceController (HU001 - Cadastrar dispositivo).
  *
  * <p>Usa {@link WebMvcTest} para testar apenas a camada de controller (REST),
- * mockando o {@link DeviceService} com {@link MockBean}. Assim nao e necessario
+ * mockando o {@link DeviceService} com {@link MockitoBean}. Assim nao e necessario
  * subir o banco de dados nem o contexto completo da aplicacao.
  *
  * <p>Cenarios testados:
@@ -40,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * <ul>
  *   <li>{@link WebMvcTest}: configura apenas o contexto MVC (controllers, exception handlers),
  *       ideal para teste unitario de camada web.</li>
- *   <li>{@link MockBean}: substitui o bean real por um mock (Mockito), permitindo
+ *   <li>{@link MockitoBean}: substitui o bean real por um mock (Mockito), permitindo
  *       controlar o comportamento do servico em cada teste.</li>
  *   <li>{@link MockMvc}: simula requisicoes HTTP para o controller sem iniciar um servidor real.</li>
  * </ul>
@@ -51,7 +50,7 @@ class DeviceControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private DeviceService deviceService;
 
     // =========================================================================
