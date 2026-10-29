@@ -1,9 +1,9 @@
 package br.checker.monitor.controller;
 
 import br.checker.monitor.dto.BrandResponse;
+import br.checker.monitor.dto.ModelResponse;
+import br.checker.monitor.dto.RoleResponse;
 import br.checker.monitor.service.CatalogService;
-import br.checker.monitor.model.DeviceModel;
-import br.checker.monitor.model.Role;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +45,7 @@ public class CatalogController {
      * Lista todos os modelos de dispositivos cadastrados.
      */
     @GetMapping("/models")
-    public ResponseEntity<List<DeviceModel>> listModels() {
+    public ResponseEntity<List<ModelResponse>> listModels() {
         return ResponseEntity.ok(catalogService.findAllModels());
     }
 
@@ -53,7 +53,7 @@ public class CatalogController {
      * Lista todas as roles (perfis de acesso) cadastradas.
      */
     @GetMapping("/roles")
-    public ResponseEntity<List<Role>> listRoles() {
+    public ResponseEntity<List<RoleResponse>> listRoles() {
         return ResponseEntity.ok(catalogService.findAllRoles());
     }
 }

@@ -1,6 +1,8 @@
 package br.checker.monitor.service;
 
 import br.checker.monitor.dto.BrandResponse;
+import br.checker.monitor.dto.ModelResponse;
+import br.checker.monitor.dto.RoleResponse;
 import br.checker.monitor.exception.ResourceNotFoundException;
 import br.checker.monitor.model.Brand;
 import br.checker.monitor.model.DeviceModel;
@@ -60,8 +62,10 @@ public class CatalogService {
     /**
      * Lista todos os modelos cadastrados.
      */
-    public List<DeviceModel> findAllModels() {
-        return modelRepository.findAll();
+    public List<ModelResponse> findAllModels() {
+        return modelRepository.findAll().stream()
+                .map(m -> new ModelResponse(m.getId(), m.getBrand().getId(), m.getName()))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -76,8 +80,10 @@ public class CatalogService {
     /**
      * Lista todas as roles cadastradas.
      */
-    public List<Role> findAllRoles() {
-        return roleRepository.findAll();
+    public List<RoleResponse> findAllRoles() {
+        return roleRepository.findAll().stream()
+                .map(r -> new RoleResponse(r.getId(), r.getName(), r.getDescription()))
+                .collect(Collectors.toList());
     }
 
     /**
