@@ -162,11 +162,30 @@ public class DeviceService {
         device.setMacAddress(normalizeMacAddress(request.macAddress()));
         device.setPlace(place);
 
-        device.getDeviceRoles().clear();
-        Set<DeviceRole> newRoles = request.deviceRoles().stream()
-                .map(roleReq -> createDeviceRole(device, roleReq))
+        Set<Long> requestedIds = request.deviceRoles().stream()
+                .map(DeviceRoleRequest::idRole)
                 .collect(Collectors.toSet());
-        device.setDeviceRoles(newRoles);
+
+        if (requestedIds.size() != request.deviceRoles().size()) {
+            throw new BusinessRuleException("A mesma role foi informada mais de uma vez.");
+        }
+
+        device.getDeviceRoles().removeIf(dr -> !requestedIds.contains(dr.getRole().getId()));
+
+        for (DeviceRoleRequest roleReq : request.deviceRoles()) {
+            DeviceRole existing = device.getDeviceRoles().stream()
+                    .filter(dr -> dr.getRole().getId().equals(roleReq.idRole()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (existing != null) {
+                existing.setTimeStart(roleReq.timeStart());
+                existing.setTimeEnd(roleReq.timeEnd());
+                existing.setActive(roleReq.active() != null ? roleReq.active() : true);
+            } else {
+                device.getDeviceRoles().add(createDeviceRole(device, roleReq));
+            }
+        }
 
         Device updatedDevice = deviceRepository.save(device);
         return toDetailResponse(updatedDevice);
