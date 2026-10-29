@@ -64,7 +64,7 @@ class DeviceControllerTest {
           "idModel": 20,
           "ipAddress": "192.168.1.100",
           "macAddress": "00-1A-2B-3C-4D-5E",
-          "idPlace": null,
+          "idPlace": 1,
           "deviceRoles": [
             {
               "idRole": 1,
