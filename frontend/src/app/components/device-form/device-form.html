@@ -4,7 +4,17 @@
     <input formControlName="name"
            type="text"
            placeholder="Ex: Roteador-Core-01"
+           [ngClass]="{
+             'border-red-500 bg-red-50': isFieldInvalid('name'),
+             'border-gray-300': !isFieldInvalid('name')
+           }"
            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border">
+
+    @if (isFieldInvalid('name')){
+      <span class="text-xs text-red-600 mt-1 block">
+        O campo Nome é obrigatório.
+      </span>
+    }
   </label>
 
   <label>
@@ -12,7 +22,17 @@
     <input formControlName="brand"
            type="text"
            placeholder="Ex: Cisco"
+           [ngClass]="{
+             'border-red-500 bg-red-50': isFieldInvalid('brand'),
+             'border-gray-300': !isFieldInvalid('brand')
+           }"
            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border">
+
+    @if (isFieldInvalid('brand')){
+      <span class="text-xs text-red-600 mt-1 block">
+        O campo Marca é obrigatório.
+      </span>
+    }
   </label>
 
   <label>
@@ -28,7 +48,17 @@
     <input formControlName="ipAddress"
            type="text"
            placeholder="Ex: 192.168.0.1"
+           [ngClass]="{
+             'border-red-500 bg-red-50': isFieldInvalid('ipAddress'),
+             'border-gray-300': !isFieldInvalid('ipAddress')
+           }"
            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border">
+
+    @if (isFieldInvalid('ipAddress')){
+      <span class="text-xs text-red-600 mt-1 block">
+        O campo IP é obrigatório.
+      </span>
+    }
   </label>
 
   <label>
@@ -44,7 +74,17 @@
     <input formControlName="permissions"
            type="text"
            placeholder="Ex: Root"
+           [ngClass]="{
+             'border-red-500 bg-red-50': isFieldInvalid('permissions'),
+             'border-gray-300': !isFieldInvalid('permissions')
+           }"
            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border">
+
+    @if (isFieldInvalid('permissions')){
+      <span class="text-xs text-red-600 mt-1 block">
+        O campo Permissões é obrigatório.
+      </span>
+    }
   </label>
 
   <label>
