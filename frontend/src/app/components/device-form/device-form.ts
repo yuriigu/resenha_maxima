@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { DeviceService } from '../../services/device.service';
 
 @Component({
   imports: [ReactiveFormsModule, NgClass],
@@ -14,7 +15,10 @@ import { NgClass } from '@angular/common';
 export class DeviceForm {
   deviceForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private deviceService: DeviceService
+  ) {
     this.deviceForm = this.fb.group({
       name: ['', Validators.required],
       brand: ['', Validators.required],
@@ -28,12 +32,21 @@ export class DeviceForm {
 
   onSubmit() {
     if (this.deviceForm.valid) {
-      console.log('Dados do dispositivo:', this.deviceForm.value);
-      alert('Dispositivo cadastrado com sucesso!');
-    } else {
-      console.log('Formulário inválido. Preencha os campos obrigatórios.');
-      alert('Por favor, preencha todos os campos obrigatórios (*).');
-      this.deviceForm.markAllAsTouched();
+      this.deviceService.createDevice(this.deviceForm.value).subscribe({
+        next: (response) => {
+          console.log('Dispositivo cadastrado com sucesso!', response);
+          alert('Dispositivo cadastrado com sucesso!');
+          this.deviceForm.reset();
+        },
+        error: (err) =>{
+          console. error('Erro ao cadastrar dispositivo:', err)
+          alert('Erro ao conectar com o servidor.');
+        }
+      });
+      } else{
+        console.log('Formulário inválido.');
+        alert('Por favor, preencha todos os campos obrigatórios (*).');
+        this.deviceForm.markAllAsTouched();
     }
   }
 
