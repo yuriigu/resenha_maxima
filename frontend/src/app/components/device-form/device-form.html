@@ -1,4 +1,4 @@
-<form [formGroup]="deviceForm">
+<form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
   <label>
     <span class="text-gray-700 font-medium">Nome do Dispositivo *</span>
     <input formControlName="name"

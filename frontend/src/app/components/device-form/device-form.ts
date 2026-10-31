@@ -24,4 +24,15 @@ export class DeviceForm {
       location: ['']
     })
   }
+
+  onSubmit(){
+    if(this.deviceForm.valid){
+      console.log('Dados do dispositivo:', this.deviceForm.value);
+      alert('Dispositivo cadastrado com sucesso!');
+      } else{
+        console.log('Formulário inválido. Preencha os campos obrigatórios.');
+        alert('Por favor, preencha todos os campos obrigatórios (*).');
+        this.deviceForm.markAllAsTouched();
+    }
+  }
 }
