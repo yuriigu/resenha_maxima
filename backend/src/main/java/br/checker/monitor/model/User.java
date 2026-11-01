@@ -22,7 +22,7 @@ public class User {
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_role", nullable = false)
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     public User() {
