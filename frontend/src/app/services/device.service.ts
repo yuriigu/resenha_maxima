@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -6,9 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DeviceService {
-  private apiUrl = 'http://localhost:4200/api/devices';
+  private readonly http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  // URL relativa: o navegador chama http://localhost:4000/api/devices (mesma origem do web container)
+  // e o Express/SSR faz proxy para http://api:8080 via rede Docker.
+  private readonly apiUrl = '/api/devices';
+
+  constructor() {}
 
   createDevice(deviceData: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, deviceData);
