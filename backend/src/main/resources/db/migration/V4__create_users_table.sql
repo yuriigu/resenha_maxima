@@ -9,6 +9,6 @@ CREATE TABLE users (
                        name VARCHAR(255) NOT NULL,
                        email VARCHAR(255) NOT NULL UNIQUE,
                        password VARCHAR(255) NOT NULL,
-                       role_id BIGINT NOT NULL,
+                       id_role BIGINT NOT NULL,
                        CONSTRAINT fk_users_role FOREIGN KEY (id_role) REFERENCES roles(id)
 );
