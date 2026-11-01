@@ -29,7 +29,7 @@
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
-              "allowedHosts": []
+              "allowedHosts": ["*"]
             },
             "ssr": {
               "entry": "src/server.ts"
